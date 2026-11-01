@@ -1,0 +1,591 @@
+@charset "UTF-8";
+
+/* ============================================================
+   Chillwave / Dreamwave Stylesheet (Piano Player Landing Page)
+   Palette & Atmosphere:
+   - Deep Twilight Blue (深暮藍色): #0c1222 / #090e1a
+   - Peach Orange (蜜桃橘): #f6a287 / #fba890
+   - Dusty Rose (乾燥玫瑰色): #d9859f / #e292a8
+   - Dream Lavender (夢幻薰衣草): #bdc3ff / #c9bcf2
+   - Frosted Glass: rgba(16, 22, 44, 0.65) with backdrop-blur-2xl
+   - Wide Diffuse Glow: Large spread/blur ambient shadows
+   - Animations: 70% slower with long-period ease-in-out breathing rhythm
+============================================================ */
+
+:root {
+  --bg-deep-blue: #0c1222;
+  --bg-midnight: #080c16;
+  --bg-glass: rgba(16, 23, 44, 0.68);
+  --peach-orange: #f6a287;
+  --peach-glow: rgba(246, 162, 135, 0.35);
+  --dusty-rose: #d9859f;
+  --rose-glow: rgba(217, 133, 159, 0.35);
+  --dream-lavender: #bdc3ff;
+  --lavender-glow: rgba(189, 195, 255, 0.25);
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-deep-blue);
+}
+
+body {
+  background-color: var(--bg-deep-blue);
+  color: #f1ecf7;
+  font-family: 'Noto Sans TC', 'Rajdhani', sans-serif;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Custom Soothing Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0c1222;
+}
+::-webkit-scrollbar-thumb {
+  background: #1c2642;
+  border-radius: 4px;
+  border: 1px solid rgba(246, 162, 135, 0.25);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d9859f;
+  box-shadow: 0 0 16px rgba(217, 133, 159, 0.5);
+}
+
+/* ============================================================
+   1. DYNAMIC CHILLWAVE / DREAMWAVE SCENIC BACKGROUND SYSTEM
+   Ultra-slow, soothing 70% speed reduction, long-period ease-in-out breathing
+   ============================================================ */
+#scenic-backdrop {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.scenic-layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 2.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
+}
+
+.scenic-layer.active {
+  opacity: 1;
+}
+
+/* ------------------------------------------------------------
+   SCENE 1: STARRY NIGHT OVER CHILL OCEAN (HERO)
+   Low water level (26%), deep twilight blue sky, slow gentle waves
+   ------------------------------------------------------------ */
+.scene-ocean {
+  background: radial-gradient(ellipse at 50% 18%, #161c36 0%, #0d1326 55%, #080c18 100%);
+}
+
+/* Gentle Long-Period Twinkling Stars (18s breath) */
+.scene-ocean .night-stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 75%;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 16%, rgba(255, 255, 255, 0.85), transparent),
+    radial-gradient(1.2px 1.2px at 28% 34%, rgba(246, 162, 135, 0.8), transparent),
+    radial-gradient(1.8px 1.8px at 46% 14%, rgba(217, 133, 159, 0.85), transparent),
+    radial-gradient(1px 1px at 62% 42%, rgba(189, 195, 255, 0.9), transparent),
+    radial-gradient(1.5px 1.5px at 76% 22%, rgba(255, 255, 255, 0.85), transparent),
+    radial-gradient(1.2px 1.2px at 89% 36%, rgba(246, 162, 135, 0.75), transparent),
+    radial-gradient(1.4px 1.4px at 68% 56%, rgba(217, 133, 159, 0.8), transparent);
+  background-size: 650px 650px;
+  opacity: 0.75;
+  animation: starsBreathe 18s ease-in-out infinite alternate;
+}
+
+@keyframes starsBreathe {
+  0% { opacity: 0.5; transform: scale(0.995); }
+  50% { opacity: 0.85; transform: scale(1); }
+  100% { opacity: 0.6; transform: scale(1.005); }
+}
+
+/* Low Horizon Line with Soft Peach-Rose Glow (74% height) */
+.scene-ocean .night-horizon {
+  position: absolute;
+  top: 74%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 5%, rgba(217, 133, 159, 0.2) 20%, rgba(246, 162, 135, 0.5) 50%, rgba(217, 133, 159, 0.2) 80%, transparent 95%);
+  box-shadow: 0 0 24px 4px rgba(246, 162, 135, 0.35);
+}
+
+/* Deep Twilight Blue Water Body (Bottom 26%) */
+.scene-ocean .night-water {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 26%;
+  background: linear-gradient(to bottom, #111830 0%, #0c1224 50%, #070a14 100%);
+  overflow: hidden;
+}
+
+/* Ultra Slow Ocean Ripple Waves (26s ease-in-out) */
+.scene-ocean .night-waves {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 14px,
+    rgba(246, 162, 135, 0.08) 15px,
+    rgba(217, 133, 159, 0.04) 18px
+  );
+  animation: oceanChillBreath 26s ease-in-out infinite alternate;
+}
+
+@keyframes oceanChillBreath {
+  0% { transform: translateY(0) scaleY(1); opacity: 0.6; }
+  50% { transform: translateY(-3px) scaleY(1.05); opacity: 0.9; }
+  100% { transform: translateY(-5px) scaleY(1.02); opacity: 0.65; }
+}
+
+/* ------------------------------------------------------------
+   SCENE 2: PASTEL AURORA & MOUNTAINS (VISION & SHOWCASE)
+   Soft lavender & dusty rose haze drifting gently (45s)
+   ------------------------------------------------------------ */
+.scene-aurora {
+  background: linear-gradient(to bottom, #0c1222 0%, #151d38 50%, #090e1c 100%);
+}
+
+.scene-aurora .aurora-curtain {
+  position: absolute;
+  top: 0;
+  left: -20%;
+  width: 140%;
+  height: 60%;
+  background: 
+    radial-gradient(ellipse at 30% 25%, rgba(217, 133, 159, 0.22) 0%, transparent 58%),
+    radial-gradient(ellipse at 70% 35%, rgba(246, 162, 135, 0.2) 0%, transparent 62%);
+  filter: blur(55px);
+  animation: auroraGentleDrift 45s ease-in-out infinite alternate;
+}
+
+@keyframes auroraGentleDrift {
+  0% { transform: translateX(0) scale(1); }
+  50% { transform: translateX(35px) scale(1.06); }
+  100% { transform: translateX(-35px) scale(0.96); }
+}
+
+.scene-aurora .mountain-silhouette {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 44%;
+  background: linear-gradient(to top, rgba(12, 18, 34, 0.98) 20%, rgba(22, 30, 56, 0.75) 75%, transparent 100%);
+  clip-path: polygon(
+    0% 100%, 0% 70%, 15% 42%, 28% 65%, 45% 30%, 58% 55%, 72% 38%, 88% 68%, 100% 45%, 100% 100%
+  );
+  filter: drop-shadow(0 -6px 28px rgba(217, 133, 159, 0.22));
+}
+
+/* ------------------------------------------------------------
+   SCENE 3: DEEP SPACE DREAM NEBULA (TECH & AI WORKFLOW)
+   Slow celestial spin (75s), soft rose-lavender cloud
+   ------------------------------------------------------------ */
+.scene-nebula {
+  background: radial-gradient(circle at 50% 35%, #182242 0%, #0d1326 65%, #060912 100%);
+}
+
+.scene-nebula .nebula-cloud-1 {
+  position: absolute;
+  top: 15%;
+  right: 12%;
+  width: 580px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(217, 133, 159, 0.22) 0%, rgba(189, 195, 255, 0.12) 45%, transparent 70%);
+  filter: blur(65px);
+  animation: nebulaRelaxSpin 75s ease-in-out infinite alternate;
+}
+
+.scene-nebula .nebula-cloud-2 {
+  position: absolute;
+  bottom: 12%;
+  left: 8%;
+  width: 550px;
+  height: 440px;
+  background: radial-gradient(circle, rgba(246, 162, 135, 0.18) 0%, rgba(217, 133, 159, 0.14) 50%, transparent 70%);
+  filter: blur(60px);
+  animation: nebulaRelaxSpin 90s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes nebulaRelaxSpin {
+  0% { transform: scale(0.95) rotate(0deg); }
+  50% { transform: scale(1.05) rotate(8deg); }
+  100% { transform: scale(0.98) rotate(16deg); }
+}
+
+.scene-nebula .starfield {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(1.5px 1.5px at 15% 20%, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1px 1px at 35% 65%, rgba(246,162,135,0.7), transparent),
+    radial-gradient(1.8px 1.8px at 55% 15%, rgba(217,133,159,0.75), transparent),
+    radial-gradient(1.2px 1.2px at 75% 45%, rgba(189,195,255,0.8), transparent),
+    radial-gradient(1px 1px at 85% 85%, rgba(246,162,135,0.7), transparent);
+  background-size: 550px 550px;
+  opacity: 0.6;
+}
+
+/* ------------------------------------------------------------
+   SCENE 4: DREAMWAVE / CHILLWAVE SUNSET (ROADMAP & OUTRO)
+   Inspired directly by the user's uploaded Chillwave Artwork:
+   - Soft lavender-blue to dusty rose gradient sky
+   - Glowing circular sun transitioning from dusty rose to peach
+   - Vast diffuse ambient glow (huge spread radius)
+   - Pastel faceted mountain reflections
+   - Shimmering calm water (24s ease-in-out breathing rhythm)
+   ------------------------------------------------------------ */
+.scene-dawn {
+  background: linear-gradient(
+    to bottom,
+    #9aa6e6 0%,
+    #c4b5e8 18%,
+    #e9bfd8 38%,
+    #f8c5c8 55%,
+    #fca582 72%,
+    #3b2248 85%,
+    #130e22 100%
+  );
+}
+
+/* Dreamwave Glowing Sun with Wide Diffuse Ambient Halo */
+.scene-dawn .dreamwave-sun {
+  position: absolute;
+  top: 24%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: linear-gradient(to bottom, #ff8fbd 0%, #ffb6b0 60%, #ffd4a8 100%);
+  /* Substantially increased box-shadow spread/blur for soothing diffuse halo */
+  box-shadow: 
+    0 0 50px 15px rgba(255, 143, 189, 0.45),
+    0 0 120px 40px rgba(246, 162, 135, 0.35),
+    0 0 240px 90px rgba(233, 191, 216, 0.25);
+  animation: sunSlowBreathe 18s ease-in-out infinite alternate;
+}
+
+@keyframes sunSlowBreathe {
+  0% { transform: translateX(-50%) scale(0.96); opacity: 0.88; }
+  50% { transform: translateX(-50%) scale(1.02); opacity: 0.98; }
+  100% { transform: translateX(-50%) scale(0.98); opacity: 0.92; }
+}
+
+/* Soft Pastel Low-Poly Mountain Silhouette */
+.scene-dawn .dreamwave-mountains {
+  position: absolute;
+  top: 42%;
+  left: 0;
+  width: 100%;
+  height: 38%;
+  background: linear-gradient(to bottom, #b485b0 0%, #613e68 50%, #221430 100%);
+  clip-path: polygon(
+    0% 100%, 0% 55%, 12% 40%, 25% 68%, 38% 46%, 48% 62%, 52% 62%, 62% 44%, 75% 66%, 88% 40%, 100% 55%, 100% 100%
+  );
+  filter: drop-shadow(0 -8px 30px rgba(255, 143, 189, 0.35));
+}
+
+/* Calm Shimmering Reflective Water Body */
+.scene-dawn .shimmer-water {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 28%;
+  background: linear-gradient(
+    to bottom,
+    rgba(238, 179, 201, 0.85) 0%,
+    rgba(180, 133, 176, 0.85) 40%,
+    rgba(34, 20, 48, 0.95) 85%,
+    #0c0816 100%
+  );
+  border-top: 2px solid rgba(255, 218, 200, 0.75);
+  box-shadow: 0 0 45px 12px rgba(246, 162, 135, 0.3);
+  overflow: hidden;
+}
+
+/* Gentle Horizontal Water Glimmer (24s ease-in-out) */
+.scene-dawn .shimmer-ripples {
+  position: absolute;
+  inset: 0;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 10px,
+      rgba(255, 230, 215, 0.35) 11px,
+      rgba(246, 162, 135, 0.15) 14px,
+      transparent 16px
+    ),
+    radial-gradient(ellipse at 50% 0%, rgba(255, 215, 190, 0.6) 0%, transparent 65%);
+  animation: waterChillGlimmer 24s ease-in-out infinite alternate;
+}
+
+@keyframes waterChillGlimmer {
+  0% { transform: translateY(0) scaleX(0.99); opacity: 0.65; }
+  50% { transform: translateY(-4px) scaleX(1.01); opacity: 0.9; }
+  100% { transform: translateY(-6px) scaleX(1); opacity: 0.7; }
+}
+
+/* ------------------------------------------------------------
+   2. TEXTURE FILTERS: ULTRA-LIGHT SOFT ANALOG VIGNETTE
+   (Extremely subtle so the background gradient breathes freely)
+   ------------------------------------------------------------ */
+.crt-scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 800;
+  background: linear-gradient(
+    rgba(18, 24, 46, 0) 50%, 
+    rgba(8, 12, 24, 0.12) 50%
+  );
+  background-size: 100% 4px;
+  opacity: 0.1;
+}
+
+.crt-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 799;
+  background: radial-gradient(
+    circle at center,
+    transparent 62%,
+    rgba(12, 18, 34, 0.4) 86%,
+    rgba(8, 12, 24, 0.78) 100%
+  );
+}
+
+/* ------------------------------------------------------------
+   3. STICKY NAVBAR: GLASSMORPHISM WITH SOFT PEACH BORDER GLOW
+   ------------------------------------------------------------ */
+.glass-navbar {
+  background: rgba(12, 18, 34, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(246, 162, 135, 0.22);
+  /* Substantially increased spread for gentle diffuse light */
+  box-shadow: 
+    0 8px 32px 0 rgba(8, 12, 24, 0.35),
+    0 1px 0 0 rgba(246, 162, 135, 0.25),
+    0 0 35px 5px rgba(246, 162, 135, 0.1);
+  transition: all 0.5s ease-in-out;
+}
+
+.glass-navbar.scrolled {
+  background: rgba(10, 16, 30, 0.9);
+  border-bottom: 1px solid rgba(246, 162, 135, 0.35);
+  box-shadow: 
+    0 12px 40px 0 rgba(8, 12, 24, 0.5),
+    0 0 45px 8px rgba(246, 162, 135, 0.18);
+}
+
+/* Nav Link Hover & Active State */
+.nav-link {
+  position: relative;
+  transition: all 0.4s ease-in-out;
+  color: #c8c2d8;
+}
+
+.nav-link:hover {
+  color: #f6a287;
+  text-shadow: 0 0 16px rgba(246, 162, 135, 0.5);
+}
+
+.nav-link.active {
+  color: #f6a287;
+  font-weight: 600;
+  text-shadow: 0 0 20px rgba(246, 162, 135, 0.7);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 70%;
+  height: 2px;
+  background: #f6a287;
+  box-shadow: 0 0 12px 2px rgba(246, 162, 135, 0.6);
+  transition: transform 0.4s ease-in-out;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* ------------------------------------------------------------
+   4. CHILLWAVE / DREAMWAVE GLASSMORPHISM UI CARDS & GLOWS
+   Soft frosted glass (毛玻璃), wide ambient diffusion
+   ------------------------------------------------------------ */
+.glass-card {
+  background: rgba(16, 23, 44, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(246, 162, 135, 0.2);
+  /* Greatly increased diffusion spread radius */
+  box-shadow: 
+    0 12px 36px 0 rgba(8, 12, 24, 0.4),
+    0 0 50px 10px rgba(246, 162, 135, 0.08),
+    0 0 80px 20px rgba(217, 133, 159, 0.05);
+  transition: all 0.5s ease-in-out;
+}
+
+.glass-card:hover {
+  border-color: rgba(246, 162, 135, 0.45);
+  box-shadow: 
+    0 16px 45px 0 rgba(8, 12, 24, 0.5),
+    0 0 65px 15px rgba(246, 162, 135, 0.16),
+    0 0 95px 25px rgba(217, 133, 159, 0.1);
+  transform: translateY(-3px);
+}
+
+/* Soft Diffuse Text Glows */
+.text-glow-peach {
+  text-shadow: 
+    0 0 15px rgba(246, 162, 135, 0.6),
+    0 0 45px rgba(246, 162, 135, 0.35),
+    0 0 80px rgba(217, 133, 159, 0.2);
+}
+
+.text-glow-rose {
+  text-shadow: 
+    0 0 15px rgba(217, 133, 159, 0.6),
+    0 0 45px rgba(217, 133, 159, 0.35);
+}
+
+/* Soothing Buttons with Warm Ambient Diffusion */
+.chill-button-peach {
+  background: linear-gradient(135deg, #f6a287 0%, #d9859f 100%);
+  color: #0c1222;
+  font-weight: 700;
+  box-shadow: 
+    0 6px 25px 0 rgba(246, 162, 135, 0.35),
+    0 0 50px 12px rgba(217, 133, 159, 0.2);
+  transition: all 0.4s ease-in-out;
+}
+
+.chill-button-peach:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 35px 0 rgba(246, 162, 135, 0.55),
+    0 0 70px 20px rgba(217, 133, 159, 0.35);
+}
+
+.chill-button-rose {
+  background: rgba(217, 133, 159, 0.12);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(217, 133, 159, 0.5);
+  color: #f1ecf7;
+  font-weight: 600;
+  box-shadow: 
+    0 4px 20px 0 rgba(217, 133, 159, 0.2),
+    0 0 40px 8px rgba(246, 162, 135, 0.12);
+  transition: all 0.4s ease-in-out;
+}
+
+.chill-button-rose:hover {
+  background: rgba(217, 133, 159, 0.25);
+  border-color: #f6a287;
+  color: #fff;
+  box-shadow: 
+    0 6px 30px 0 rgba(217, 133, 159, 0.4),
+    0 0 60px 16px rgba(246, 162, 135, 0.25);
+  transform: translateY(-2px);
+}
+
+/* YouTube Video Preview Shell with Glassmorphism */
+.yt-preview-window {
+  border-radius: 1.25rem;
+  overflow: hidden;
+  background: rgba(14, 20, 38, 0.72);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(246, 162, 135, 0.22);
+  box-shadow: 
+    0 12px 35px 0 rgba(8, 12, 24, 0.4),
+    0 0 50px 10px rgba(246, 162, 135, 0.08);
+  transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out, border-color 0.4s ease-in-out;
+}
+
+.yt-preview-window:hover {
+  border-color: rgba(246, 162, 135, 0.5);
+  box-shadow: 
+    0 16px 45px 0 rgba(8, 12, 24, 0.5),
+    0 0 65px 15px rgba(246, 162, 135, 0.18);
+  transform: translateY(-3px);
+}
+
+.yt-window-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.2rem;
+  background: rgba(18, 25, 48, 0.85);
+  border-bottom: 1px solid rgba(246, 162, 135, 0.15);
+}
+
+/* 7-Step Workflow Cards (Glassmorphism + Warm Glow) */
+.workflow-step-card {
+  background: rgba(16, 23, 44, 0.68);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(246, 162, 135, 0.18);
+  border-radius: 1.25rem;
+  padding: 1.75rem;
+  box-shadow: 
+    0 8px 30px 0 rgba(8, 12, 24, 0.35),
+    0 0 40px 8px rgba(246, 162, 135, 0.06);
+  transition: all 0.4s ease-in-out;
+  position: relative;
+}
+
+.workflow-step-card:hover {
+  border-color: rgba(246, 162, 135, 0.45);
+  box-shadow: 
+    0 12px 40px 0 rgba(8, 12, 24, 0.45),
+    0 0 60px 15px rgba(246, 162, 135, 0.16);
+  transform: translateY(-2px);
+}
+
+.workflow-step-number {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #f6a287;
+  text-shadow: 0 0 16px rgba(246, 162, 135, 0.5);
+}
+
+/* Onstage Presentation QR Stage Card with Soothing Rose/Peach Glow */
+.qr-stage-card {
+  background: rgba(16, 23, 46, 0.78);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1.5px solid rgba(246, 162, 135, 0.35);
+  box-shadow: 
+    0 20px 60px 0 rgba(8, 12, 24, 0.55),
+    0 0 80px 25px rgba(246, 162, 135, 0.18),
+    0 0 140px 50px rgba(217, 133, 159, 0.12);
+}

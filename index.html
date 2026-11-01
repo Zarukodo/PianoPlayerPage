@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piano Player | 像玩 3A 遊戲般，零基礎掌握無譜即興</title>
+  <meta name="description" content="專為成年人打造的沉浸式音樂空間。打破死記硬背傳統教學，在放鬆遊玩的過程中，掌握鋼琴底層邏輯，隨心即興。">
+
+  <!-- Google Fonts: Orbitron, Rajdhani, Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Orbitron:wght@500;700;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            chill: {
+              bg: '#0c1222',
+              midnight: '#080c16',
+              card: 'rgba(16, 23, 44, 0.65)',
+              border: 'rgba(246, 162, 135, 0.22)',
+            },
+            peach: {
+              DEFAULT: '#f6a287',
+              soft: '#fba890',
+            },
+            rose: {
+              DEFAULT: '#d9859f',
+              soft: '#e292a8',
+            },
+            lavender: {
+              DEFAULT: '#bdc3ff',
+              soft: '#c9bcf2',
+            },
+            sunset: {
+              cream: '#f8f1e5',
+            }
+          },
+          fontFamily: {
+            display: ['Orbitron', 'sans-serif'],
+            tech: ['Rajdhani', 'sans-serif'],
+            sans: ['Noto Sans TC', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Chillwave / Dreamwave CSS -->
+  <link rel="stylesheet" href="css/retro.css">
+</head>
+<body class="bg-chill-bg text-[#f1ecf7] selection:bg-peach selection:text-chill-bg">
+
+  <!-- ============================================================
+       1. DYNAMIC CHILLWAVE / DREAMWAVE SCENIC BACKGROUND SYSTEM
+       - Scene 1: Starry Night over Chill Ocean (low water at bottom 26%)
+       - Scene 2: Pastel Aurora & Mountains
+       - Scene 3: Deep Space Cosmic Dream Nebula
+       - Scene 4: Dreamwave Sunset (Warm Glowing Sun, Pastel Mountains & Mirror Waters)
+       ============================================================ -->
+  <div id="scenic-backdrop" aria-hidden="true">
+    
+    <!-- Scene 1: Starry Night Sky over Ocean (Hero - Waterline at bottom 26%) -->
+    <div id="scene-ocean" class="scenic-layer scene-ocean">
+      <div class="night-stars"></div>
+      <div class="night-horizon"></div>
+      <div class="night-water">
+        <div class="night-waves"></div>
+      </div>
+    </div>
+
+    <!-- Scene 2: Pastel Aurora & Mountain Ridges -->
+    <div id="scene-aurora" class="scenic-layer scene-aurora">
+      <div class="aurora-curtain"></div>
+      <div class="mountain-silhouette"></div>
+    </div>
+
+    <!-- Scene 3: Cosmic Nebula & Deep Space Starfield -->
+    <div id="scene-nebula" class="scenic-layer scene-nebula">
+      <div class="nebula-cloud-1"></div>
+      <div class="nebula-cloud-2"></div>
+      <div class="starfield"></div>
+    </div>
+
+    <!-- Scene 4: Dreamwave Sunset (Glowing Sun, Pastel Mountains & Shimmering Waters) -->
+    <div id="scene-dawn" class="scenic-layer scene-dawn">
+      <div class="dreamwave-sun"></div>
+      <div class="dreamwave-mountains"></div>
+      <div class="shimmer-water">
+        <div class="shimmer-ripples"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Texture Filters: Ultra-Light Soft Analog Vignette -->
+  <div class="crt-vignette" aria-hidden="true"></div>
+  <div class="crt-scanlines" aria-hidden="true"></div>
+
+  <!-- ============================================================
+       STICKY NAVBAR (GLASSMORPHISM WITH SOFT PEACH BORDER GLOW)
+       ============================================================ -->
+  <header id="navbar" class="fixed top-0 left-0 w-full z-50 glass-navbar">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Brand Logo (Clear Cream Tile: Black Symbol is 100% Crisp) -->
+        <a href="#hero" class="flex items-center gap-3.5 group focus:outline-none">
+          <div class="relative w-11 h-11 rounded-xl bg-[#f8f1e5] border border-peach/40 p-1 flex items-center justify-center shadow-[0_0_16px_rgba(246,162,135,0.35)] group-hover:shadow-[0_0_24px_rgba(246,162,135,0.65)] transition-all">
+            <img src="assets/image1.png" alt="Piano Player Logo" class="w-7 h-7 object-contain">
+          </div>
+          <div class="flex flex-col">
+            <span class="font-display text-lg tracking-wider font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sunset-cream via-peach to-rose group-hover:text-glow-peach transition-all">
+              PIANO PLAYER
+            </span>
+            <span class="text-[10px] font-tech font-bold uppercase tracking-[0.2em] text-[#b4a9c6] -mt-0.5">
+              3A Vibe Music Space
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Items -->
+        <nav class="hidden lg:flex items-center gap-7">
+          <a href="#hero" class="nav-link text-sm tracking-wide active">首頁</a>
+          <a href="#vision" class="nav-link text-sm tracking-wide">痛點與解方</a>
+          <a href="#showcase" class="nav-link text-sm tracking-wide">產品展示</a>
+          <a href="#tech" class="nav-link text-sm tracking-wide">技術架構</a>
+          <a href="#ai-workflow" class="nav-link text-sm tracking-wide">AI 協作</a>
+          <a href="#synergy" class="nav-link text-sm tracking-wide">人機價值</a>
+          <a href="#roadmap" class="nav-link text-sm tracking-wide">下一步</a>
+        </nav>
+
+        <!-- Right Side Onstage Callout & Mobile Hamburger -->
+        <div class="flex items-center gap-4">
+          <a href="#cta" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs font-tech uppercase tracking-widest chill-button-peach">
+            <svg class="w-3.5 h-3.5 mr-2 text-chill-bg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+            </svg>
+            邀請函
+          </a>
+
+          <!-- Mobile Menu Button -->
+          <button id="mobile-menu-btn" type="button" aria-expanded="false" aria-label="切換選單" class="lg:hidden p-2 rounded-lg text-[#d1c2eb] hover:text-peach hover:bg-white/5 border border-white/10 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden lg:hidden border-b border-peach/25 bg-[#0c1222]/95 backdrop-blur-2xl px-6 pt-3 pb-6 space-y-3">
+      <a href="#hero" class="mobile-nav-link block py-2 text-base text-[#e0d6f3] hover:text-peach">首頁</a>
+      <a href="#vision" class="mobile-nav-link block py-2 text-base text-[#e0d6f3] hover:text-peach">痛點與解方</a>
+      <a href="#showcase" class="mobile-nav-link block py-2 text-base text-[#e0d6f3] hover:text-peach">產品展示</a>
+      <a href="#tech" class="mobile-nav-link block py-2 text-base text-[#e0d6f3] hover:text-peach">技術架構</a>
+      <a href="#ai-workflow" class="mobile-nav-link block py-2 text-base text-[#e0d6f3] hover:text-peach">AI 協作</a>
+      <a href="#synergy" class="mobile-nav-link block py-2 text-base text-[#e0d6f3] hover:text-peach">人機定位</a>
+      <a href="#roadmap" class="mobile-nav-link block py-2 text-base text-[#e0d6f3] hover:text-peach">下一步規劃</a>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN CONTENT CONTAINER
+       ============================================================ -->
+  <main class="relative z-10 pt-20">
+
+    <!-- ------------------------------------------------------------
+         SLIDE 1: HERO SECTION (封面 - CHILLWAVE / DREAMWAVE 沉浸溫和)
+         星空下的海洋，海平面置於畫面低處 (26%)，視野通透無遮擋
+         ------------------------------------------------------------ -->
+    <section id="hero" class="min-h-[calc(100vh-5rem)] flex items-center justify-center px-4 sm:px-6 lg:px-8 py-24 relative">
+      <div class="max-w-4xl mx-auto text-center relative z-10">
+
+        <!-- Main Title -->
+        <h1 class="font-display text-6xl sm:text-8xl lg:text-9xl font-black tracking-tight mb-8">
+          <span class="text-transparent bg-clip-text bg-gradient-to-b from-white via-[#f6edf9] to-[#c7c0db] drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]">
+            PIANO
+          </span>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-peach via-rose to-lavender text-glow-peach">
+            PLAYER
+          </span>
+        </h1>
+
+        <!-- Subtitle from Slide 1 -->
+        <p class="text-xl sm:text-3xl lg:text-4xl font-light text-[#ece4f5] max-w-2xl mx-auto mb-14 leading-relaxed tracking-wide">
+          像玩 <span class="font-bold text-peach border-b-2 border-peach/50 pb-0.5">3D遊戲</span>，零基礎掌握<span class="font-bold text-rose">無譜即興</span>
+        </p>
+
+        <!-- Clean Action Buttons with Diffuse Glow -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+          <a href="#showcase" class="w-full sm:w-auto px-9 py-4 rounded-full text-sm font-tech uppercase tracking-widest chill-button-rose flex items-center justify-center gap-2">
+            <span>產品影片預覽</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </a>
+          <a href="#vision" class="w-full sm:w-auto px-9 py-4 rounded-full text-sm font-tech uppercase tracking-widest chill-button-peach flex items-center justify-center gap-2">
+            <span>了解痛點與解方</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------------
+         SLIDE 2: 痛點與解方 (VISION & PAIN POINTS - GLASSMORPHISM)
+         ------------------------------------------------------------ -->
+    <section id="vision" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-peach/15">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-white text-glow-peach">痛點與解方</h2>
+          <div class="w-16 h-1 bg-peach mx-auto mt-4 rounded-full shadow-[0_0_15px_#f6a287]"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- 痛點 Card -->
+          <div class="glass-card p-8 rounded-3xl relative overflow-hidden group">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose/15 border border-rose/30 text-rose-soft font-tech text-xs uppercase tracking-wider mb-6">
+              傳統成人學琴困境
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4">為什麼成人學琴總是半途而廢？</h3>
+            <p class="text-[#cfc3e0] leading-relaxed mb-4">
+              成人學琴的目的多半是為了「表達內心」，而非應付考試與正式表演。傳統背五線譜與機械式練手勢的教學方式，容易耗盡初學者的熱情與精力。
+            </p>
+            <p class="text-[#cfc3e0] leading-relaxed">
+              成年人白天忙碌工作，需要極度自律才能練習，但下班後通常沒有充裕精力去做這種與放鬆休息相反的事。
+            </p>
+          </div>
+
+          <!-- 解方 Card -->
+          <div class="glass-card p-8 rounded-3xl relative overflow-hidden group">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-peach/15 border border-peach/30 text-peach-soft font-tech text-xs uppercase tracking-wider mb-6">
+              沉浸式無壓體驗
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4">無壓沉浸 × 放鬆遊玩中掌握底層邏輯</h3>
+            <p class="text-[#cfc3e0] leading-relaxed mb-4">
+              打造像玩遊戲般的沉浸式體驗。在視覺與聽覺的放鬆遊玩中，逐步累積並掌握鋼琴與樂理的底層邏輯。
+            </p>
+            <p class="text-[#cfc3e0] leading-relaxed">
+              最終達成「無須死記硬背樂譜、隨心所欲即興彈琴」的非凡成就，讓音樂真正成為心靈的放鬆出口。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------------
+         SLIDE 3: 產品展示 (PRODUCT SHOWCASE - YOUTUBE 獨立影片預覽窗)
+         ------------------------------------------------------------ -->
+    <section id="showcase" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-peach/15">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-white text-glow-peach">產品展示</h2>
+          <div class="w-16 h-1 bg-peach mx-auto mt-4 rounded-full shadow-[0_0_15px_#f6a287]"></div>
+        </div>
+
+        <!-- 3 Feature YouTube Preview Windows Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          <!-- Feature 1: 視覺饗宴 -->
+          <div class="yt-preview-window flex flex-col justify-between">
+            <div>
+              <div class="yt-window-bar">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose/80"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-peach/80"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-lavender/80"></span>
+                  <span class="ml-2 font-mono text-[11px] text-peach">preview_01_unity_3d.mp4</span>
+                </div>
+              </div>
+
+              <!-- YouTube Embed Player Container -->
+              <!-- Developer Note: Replace the YouTube URL src below with your actual demo video embed link -->
+              <div class="relative aspect-video w-full bg-black/60 overflow-hidden border-b border-peach/15">
+                <iframe 
+                  class="w-full h-full"
+                  src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?enablejsapi=1" 
+                  title="3D 多視角演奏場景"
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  allowfullscreen>
+                </iframe>
+              </div>
+
+              <div class="p-6">
+                <div class="text-xs font-tech font-bold text-peach uppercase tracking-wider mb-2">01 // 視覺饗宴</div>
+                <h3 class="text-xl font-bold text-white mb-3">3D 多視角演奏場景</h3>
+                <p class="text-sm text-[#cfc3e0] leading-relaxed">
+                  採用 Unity 渲染多種場景。支援自由切換演奏者視角，並具備高度客製化的配色系統，打造個人專屬數位空間。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature 2: 直覺提示 -->
+          <div class="yt-preview-window flex flex-col justify-between">
+            <div>
+              <div class="yt-window-bar">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose/80"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-peach/80"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-lavender/80"></span>
+                  <span class="ml-2 font-mono text-[11px] text-peach">preview_02_waterfall_keys.mp4</span>
+                </div>
+              </div>
+
+              <div class="relative aspect-video w-full bg-black/60 overflow-hidden border-b border-peach/15">
+                <iframe 
+                  class="w-full h-full"
+                  src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?enablejsapi=1" 
+                  title="音樂瀑布流與動態琴鍵提示"
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  allowfullscreen>
+                </iframe>
+              </div>
+
+              <div class="p-6">
+                <div class="text-xs font-tech font-bold text-rose-soft uppercase tracking-wider mb-2">02 // 直覺提示</div>
+                <h3 class="text-xl font-bold text-white mb-3">音樂瀑布流與動態變色琴鍵</h3>
+                <p class="text-sm text-[#cfc3e0] leading-relaxed">
+                  揮別五線譜的負擔！直覺式瀑布流，琴鍵隨演奏動態變色，並結合即時唱名音階標籤（Do Re Mi），讓初學者用肌肉與色彩記憶直覺彈奏。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature 3: 聽覺與硬體 -->
+          <div class="yt-preview-window flex flex-col justify-between">
+            <div>
+              <div class="yt-window-bar">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose/80"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-peach/80"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-lavender/80"></span>
+                  <span class="ml-2 font-mono text-[11px] text-peach">preview_03_midi_engine.mp4</span>
+                </div>
+              </div>
+
+              <div class="relative aspect-video w-full bg-black/60 overflow-hidden border-b border-peach/15">
+                <iframe 
+                  class="w-full h-full"
+                  src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?enablejsapi=1" 
+                  title="聽覺與硬體 MIDI 鍵盤無縫接入"
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  allowfullscreen>
+                </iframe>
+              </div>
+
+              <div class="p-6">
+                <div class="text-xs font-tech font-bold text-peach uppercase tracking-wider mb-2">03 // 聽覺與硬體</div>
+                <h3 class="text-xl font-bold text-white mb-3">多種音色與實體 MIDI 鍵盤接入</h3>
+                <p class="text-sm text-[#cfc3e0] leading-relaxed">
+                  內建多種高品質音色。支援曲目循環播放，左右手聲道單獨開關，連接實體 MIDI 鍵盤達成最逼真的手感反饋。
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------------
+         SLIDE 4: 技術架構 (TECH ARCHITECTURE - GLASSMORPHISM)
+         ------------------------------------------------------------ -->
+    <section id="tech" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-peach/15">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-white text-glow-peach">技術架構</h2>
+          <div class="w-16 h-1 bg-peach mx-auto mt-4 rounded-full shadow-[0_0_15px_#f6a287]"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Flutter Card -->
+          <div class="glass-card p-8 rounded-3xl flex flex-col items-center text-center">
+            <div class="w-16 h-16 rounded-2xl bg-peach/15 border border-peach/30 flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(246,162,135,0.2)]">
+              <span class="font-display text-2xl font-black text-peach">UI</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Flutter</h3>
+            <span class="text-xs font-tech uppercase tracking-widest text-peach mb-4 font-bold">前端介面 (UI/UX)</span>
+            <p class="text-sm text-[#cfc3e0] leading-relaxed">
+              跨平台聲響與視覺控制面板，流暢的響應式選單，即時介面狀態回饋。
+            </p>
+          </div>
+
+          <!-- Unity Card -->
+          <div class="glass-card p-8 rounded-3xl flex flex-col items-center text-center">
+            <div class="w-16 h-16 rounded-2xl bg-rose/15 border border-rose/30 flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(217,133,159,0.2)]">
+              <span class="font-display text-2xl font-black text-rose">3D</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Unity Engine</h3>
+            <span class="text-xs font-tech uppercase tracking-widest text-rose mb-4 font-bold">3D 視覺渲染</span>
+            <p class="text-sm text-[#cfc3e0] leading-relaxed">
+              光影渲染引擎，專注於沉浸式演奏空間、琴鍵物理響應、音樂瀑布流的高幀率畫面。
+            </p>
+          </div>
+
+          <!-- C++ Card -->
+          <div class="glass-card p-8 rounded-3xl flex flex-col items-center text-center">
+            <div class="w-16 h-16 rounded-2xl bg-lavender/15 border border-lavender/30 flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(189,195,255,0.2)]">
+              <span class="font-display text-2xl font-black text-lavender">C++</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">C++ Core</h3>
+            <span class="text-xs font-tech uppercase tracking-widest text-lavender mb-4 font-bold">底層核心 (MIDI 處理)</span>
+            <p class="text-sm text-[#cfc3e0] leading-relaxed">
+              追求極致的硬體 MIDI 事件監聽，確保實體按鍵與音效觸發無體感延遲。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------------
+         SLIDE 5: AI 協作工作流 (7 大階段 - 毛玻璃細緻卡片)
+         ------------------------------------------------------------ -->
+    <section id="ai-workflow" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-peach/15">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-white text-glow-peach">AI 協作工作流</h2>
+          <p class="text-base text-[#cfc3e0] mt-3">概念共創、技術規章、認知對齊、嚴格驗收、版本控制</p>
+          <div class="w-16 h-1 bg-peach mx-auto mt-4 rounded-full shadow-[0_0_15px_#f6a287]"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <!-- Step 1 -->
+          <div class="workflow-step-card">
+            <div class="flex items-center justify-between mb-4">
+              <span class="workflow-step-number">01</span>
+              <span class="text-xs font-tech text-peach font-bold uppercase tracking-wider">發想企劃</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">雛形發想與作品企劃</h3>
+            <p class="text-sm text-[#cfc3e0] leading-relaxed">
+              與 Gemini 深入討論，將成人「以音樂表達內心、抗拒傳統枯燥練琴」的痛點，轉化為「像玩遊戲般享受即興」的願景，寫下具體的作品企劃書。
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="workflow-step-card">
+            <div class="flex items-center justify-between mb-4">
+              <span class="workflow-step-number">02</span>
+              <span class="text-xs font-tech text-peach font-bold uppercase tracking-wider">任務拆解</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">作業流程書</h3>
+            <p class="text-sm text-[#cfc3e0] leading-relaxed">
+              根據企劃書進一步與 AI 討論工程拆解，將整個製作過程劃分成多個明確的階段性任務，產出對標傳統甘特圖的「作業流程書」。
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="workflow-step-card">
+            <div class="flex items-center justify-between mb-4">
+              <span class="workflow-step-number">03</span>
+              <span class="text-xs font-tech text-rose font-bold uppercase tracking-wider">流程具體化</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">流程企劃書</h3>
+            <p class="text-sm text-[#cfc3e0] leading-relaxed">
+              根據作業流程書，規劃每一階段的具體技術實現方式與「目標達成判定規則」，將願景升級為具備具體製作步驟與判定標準的深化企劃。
+            </p>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="workflow-step-card">
+            <div class="flex items-center justify-between mb-4">
+              <span class="workflow-step-number">04</span>
+              <span class="text-xs font-tech text-rose font-bold uppercase tracking-wider">技術規章</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">制定產品規格書</h3>
+            <p class="text-sm text-[#cfc3e0] leading-relaxed">
+              探討實現細節，產出包含階段需求、系統整體大架構、模組小架構、程式碼規範與資料流 I/O 定義的產品規格書，確立開發規則。
+            </p>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="workflow-step-card">
+            <div class="flex items-center justify-between mb-4">
+              <span class="workflow-step-number">05</span>
+              <span class="text-xs font-tech text-lavender font-bold uppercase tracking-wider">ANGENTS</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">認知同步與消弭歧義</h3>
+            <p class="text-sm text-[#cfc3e0] leading-relaxed">
+              匯入 Antigravity，要求 AI 逐項閱讀並「口頭回覆理解內容與行動規劃」；依據討論反向修正所有文檔，達成雙方認知百分之百對齊。
+            </p>
+          </div>
+
+          <!-- Step 6 -->
+          <div class="workflow-step-card">
+            <div class="flex items-center justify-between mb-4">
+              <span class="workflow-step-number">06</span>
+              <span class="text-xs font-tech text-lavender font-bold uppercase tracking-wider">工具授權</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">MCP 工具與環境就緒</h3>
+            <p class="text-sm text-[#cfc3e0] leading-relaxed">
+              配置 MCP 工具權限並與 AI 確認可操作能力，建構乾淨完備的開發環境，授權 AI 依據規格書與流程企劃書開始實作。
+            </p>
+          </div>
+
+          <!-- Step 7 (Spans 3 cols on desktop) -->
+          <div class="workflow-step-card md:col-span-2 lg:col-span-3 border-peach/40 shadow-[0_0_35px_rgba(246,162,135,0.12)]">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-white/10 mb-4">
+              <div class="flex items-center gap-3">
+                <span class="workflow-step-number">07</span>
+                <h3 class="text-xl font-bold text-white">Vibe Coding、嚴格驗收與 Git 絕對掌控</h3>
+              </div>
+              <span class="text-xs font-tech text-peach font-bold uppercase tracking-wider mt-1 sm:mt-0">
+                HUMAN-IN-THE-LOOP CONTROL
+              </span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-[#cfc3e0]">
+              <div class="flex items-start gap-2.5">
+                <span class="text-peach font-bold">▸</span>
+                <div>
+                  <strong class="text-white">每次修改必附驗收方式：</strong>
+                  要求 AI 每次提交修改都必須提供具體測試步驟，人類開發者親自操作檢驗，確保程式碼貼合需求。
+                </div>
+              </div>
+              <div class="flex items-start gap-2.5">
+                <span class="text-rose font-bold">▸</span>
+                <div>
+                  <strong class="text-white">VS Code + Git Graph 手動版控：</strong>
+                  小階段手動透過 Git Graph 插件管理提交以加深理解掌控，大階段告一段落後再統一推送至 GitHub。
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------------
+         SLIDE 6: 人機協作 (SYNERGY - GLASSMORPHISM)
+         ------------------------------------------------------------ -->
+    <section id="synergy" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-peach/15">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-white text-glow-peach">AI 寫 Code，我賦予靈魂</h2>
+          <div class="w-16 h-1 bg-peach mx-auto mt-4 rounded-full shadow-[0_0_15px_#f6a287]"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="glass-card p-8 rounded-3xl">
+            <div class="font-tech text-sm uppercase tracking-widest text-lavender mb-4 font-bold">🤖 AI 的角色 (高效率執行)</div>
+            <ul class="space-y-3.5 text-sm text-[#cfc3e0]">
+              <li class="flex items-start gap-2.5">
+                <span class="text-lavender font-bold">▸</span> 高效率處理大量程式碼生成與底層串接細節。
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-lavender font-bold">▸</span> 依據規格書精準實作模組與 I/O 轉換。
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-lavender font-bold">▸</span> 每次修改主動提供人類便於測試的驗收方式。
+              </li>
+            </ul>
+          </div>
+
+          <div class="glass-card p-8 rounded-3xl">
+            <div class="font-tech text-sm uppercase tracking-widest text-peach mb-4 font-bold">💡 人類的價值 (定義走向與靈魂)</div>
+            <ul class="space-y-3.5 text-sm text-[#cfc3e0]">
+              <li class="flex items-start gap-2.5">
+                <span class="text-peach font-bold">✦</span> 評估系統架構的可擴充性與長遠相容度。
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-peach font-bold">✦</span> 搜尋 3D 視覺風格參考，探索並調優 3D 建模的最佳 Prompt。
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-peach font-bold">✦</span> 構思 UI 排版與真實演奏手感的使用者體驗。
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-peach font-bold">✦</span> 親自驗收每一項功能，以 Git Graph 嚴格把關開發掌控度。
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------------
+         SLIDE 7: 下一步規劃 (ROADMAP)
+         ------------------------------------------------------------ -->
+    <section id="roadmap" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-peach/15">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-white text-glow-peach">下一步規劃</h2>
+          <div class="w-16 h-1 bg-peach mx-auto mt-4 rounded-full shadow-[0_0_15px_#f6a287]"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="glass-card p-7 rounded-3xl">
+            <span class="text-xs font-tech text-lavender font-bold tracking-widest uppercase">STEP 01</span>
+            <h3 class="text-lg font-bold text-white my-2">核心教學系統開發</h3>
+            <p class="text-sm text-[#cfc3e0] leading-relaxed">
+              打造專為成人設計的「新手教學」與「音樂能力成長系統」。
+            </p>
+          </div>
+
+          <div class="glass-card p-7 rounded-3xl border-peach/35">
+            <span class="text-xs font-tech text-peach font-bold tracking-widest uppercase">STEP 02</span>
+            <h3 class="text-lg font-bold text-white my-2">封測招募與正式上線</h3>
+            <p class="text-sm text-[#cfc3e0] leading-relaxed">
+              啟動桌面版封測招募，彙整核心用戶反饋進行優化後正式上架。
+            </p>
+          </div>
+
+          <div class="glass-card p-7 rounded-3xl">
+            <span class="text-xs font-tech text-rose font-bold tracking-widest uppercase">STEP 03</span>
+            <h3 class="text-lg font-bold text-white my-2">跨平台行動版擴展</h3>
+            <p class="text-sm text-[#cfc3e0] leading-relaxed">
+              在累積首批真實用戶與社群基礎後，投入手機與平板 APP 開發。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------------
+         SLIDE 8: 結語與 FOLLOW ME (DREAMWAVE 舞台演講專用)
+         背景為夢幻低飽和夕陽水面，波光粼粼
+         ------------------------------------------------------------ -->
+    <section id="cta" class="py-28 px-4 sm:px-6 lg:px-8 border-t border-peach/15 relative">
+      <div class="max-w-5xl mx-auto qr-stage-card p-8 sm:p-14 rounded-3xl relative overflow-hidden">
+        
+        <!-- Section Title & Presentation Outro Header -->
+        <div class="text-center mb-12">
+          <h2 class="font-display text-3xl sm:text-5xl font-black text-white mb-4">
+            FOLLOW ME & THANKS
+          </h2>
+          <p class="text-base sm:text-lg text-[#ded2f2] max-w-2xl mx-auto leading-relaxed">
+            邀請在座各位追蹤我的社群帳號！未來準備就緒時，誠摯邀請大家搶先體驗 Piano Player 封測。
+          </p>
+        </div>
+
+        <!-- Main Onstage Stage Grid: QR Code + Social Handles -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          
+          <!-- Left Column: High-Visibility Glowing QR Code -->
+          <div class="flex flex-col items-center justify-center p-6 rounded-2xl bg-[#0c1222]/85 border border-peach/35 shadow-[0_0_35px_rgba(246,162,135,0.22)] text-center group">
+            
+            <div class="relative p-3 bg-white rounded-xl shadow-lg mb-4">
+              <!-- QR Code Image Slot (支援放 assets/my_qr_code.png，若無則顯示向量 QR) -->
+              <img 
+                src="assets/my_qr_code.png" 
+                alt="Presentation QR Code" 
+                class="w-48 h-48 object-contain"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+              
+              <!-- High-Contrast Vector SVG QR Placeholder for Presentation Projection -->
+              <svg style="display:none;" class="w-48 h-48 text-[#0c1222]" viewBox="0 0 100 100" fill="currentColor">
+                <rect x="5" y="5" width="26" height="26" rx="2" fill="none" stroke="currentColor" stroke-width="4"/>
+                <rect x="12" y="12" width="12" height="12"/>
+                <rect x="69" y="5" width="26" height="26" rx="2" fill="none" stroke="currentColor" stroke-width="4"/>
+                <rect x="76" y="12" width="12" height="12"/>
+                <rect x="5" y="69" width="26" height="26" rx="2" fill="none" stroke="currentColor" stroke-width="4"/>
+                <rect x="12" y="76" width="12" height="12"/>
+                <rect x="38" y="8" width="6" height="6"/>
+                <rect x="50" y="8" width="6" height="6"/>
+                <rect x="42" y="20" width="8" height="6"/>
+                <rect x="36" y="36" width="28" height="28" fill="#f6a287" rx="4"/>
+                <circle cx="50" cy="50" r="10" fill="#0c1222"/>
+                <text x="50" y="54" font-size="10" font-weight="bold" fill="#f8f1e5" text-anchor="middle" font-family="sans-serif">PP</text>
+                <rect x="8" y="38" width="6" height="8"/>
+                <rect x="20" y="48" width="6" height="8"/>
+                <rect x="72" y="38" width="8" height="6"/>
+                <rect x="84" y="48" width="6" height="8"/>
+                <rect x="38" y="72" width="8" height="6"/>
+                <rect x="52" y="78" width="6" height="8"/>
+                <rect x="68" y="72" width="8" height="6"/>
+                <rect x="80" y="82" width="10" height="6"/>
+              </svg>
+            </div>
+
+            <!-- Scan Prompt Badge with Soft Peach Glow -->
+
+            <p class="text-xs text-[#b8a9cf]">
+              掃描追蹤開發進度，搶先體驗 Piano Player 封測！
+            </p>
+          </div>
+
+          <!-- Right Column: Personal Social & Speaker Information -->
+          <div class="space-y-4">
+            <div class="p-4 rounded-2xl bg-[#0c1222]/75 border border-rose/20 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-rose/15 border border-rose/30 flex items-center justify-center text-rose-soft">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-xs font-tech text-[#a697c4] uppercase tracking-wider">Social</div>
+                  <div class="text-sm font-bold text-white">@your_account_id</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-[#0c1222]/75 border border-lavender/20 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-lavender/15 border border-lavender/30 flex items-center justify-center text-lavender">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-xs font-tech text-[#a697c4] uppercase tracking-wider">Email</div>
+                  <div class="text-sm font-bold text-white">nasukonasuko13@gmail.com</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER (CHILLWAVE SOOTHING FINISH)
+       ============================================================ -->
+  <footer class="relative z-10 border-t border-peach/15 bg-[#090d18] py-10 px-4 text-center">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#9d93b0] font-tech">
+      <div>
+        <span class="text-white font-bold">Piano Player</span> © 2026 人工智慧概論 期中專案報告展示
+      </div>
+      <div class="flex items-center gap-4">
+        <span>Chillwave / Dreamwave Aesthetic</span>
+        <span>•</span>
+        <span>Vibe Coding Workflow</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+</body>
+</html>
