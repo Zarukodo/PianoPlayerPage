@@ -11,6 +11,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Orbitron:wght@500;700;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 
+  <!-- Three.js 3D WebGL Library via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -214,6 +217,14 @@
     </section>
 
     <!-- ------------------------------------------------------------
+         FLOATING 3D PIANO (首頁與痛點之間的無框立體懸浮鋼琴)
+         無邊框、無卡片、無文字標題，純粹 3D 水晶鋼琴懸浮於暮光水面，支援 360° 滑鼠拖曳旋轉
+         ------------------------------------------------------------ -->
+    <section id="piano-showcase" class="relative w-full h-[75vh] sm:h-[70vh] min-h-[550px] flex items-center justify-center cursor-grab active:cursor-grabbing select-none overflow-hidden pointer-events-auto">
+      <div id="piano-canvas-container" class="w-full h-full relative"></div>
+    </section>
+
+    <!-- ------------------------------------------------------------
          SLIDE 2: 痛點與解方 (VISION & PAIN POINTS - GLASSMORPHISM)
          ------------------------------------------------------------ -->
     <section id="vision" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-peach/15">
@@ -285,7 +296,7 @@
               <div class="relative aspect-video w-full bg-black/60 overflow-hidden border-b border-peach/15">
                 <iframe 
                   class="w-full h-full"
-                  src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?enablejsapi=1" 
+                  src="https://www.youtube-nocookie.com/embed/Ut_5tHdY7I0?enablejsapi=1" 
                   title="3D 多視角演奏場景"
                   frameborder="0" 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -318,7 +329,7 @@
               <div class="relative aspect-video w-full bg-black/60 overflow-hidden border-b border-peach/15">
                 <iframe 
                   class="w-full h-full"
-                  src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?enablejsapi=1" 
+                  src="https://www.youtube-nocookie.com/embed/etNx05Hykcs?enablejsapi=1" 
                   title="音樂瀑布流與動態琴鍵提示"
                   frameborder="0" 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -351,7 +362,7 @@
               <div class="relative aspect-video w-full bg-black/60 overflow-hidden border-b border-peach/15">
                 <iframe 
                   class="w-full h-full"
-                  src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?enablejsapi=1" 
+                  src="https://www.youtube-nocookie.com/embed/fFX89mSwqpc?enablejsapi=1" 
                   title="聽覺與硬體 MIDI 鍵盤無縫接入"
                   frameborder="0" 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -703,17 +714,13 @@
   <footer class="relative z-10 border-t border-peach/15 bg-[#090d18] py-10 px-4 text-center">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#9d93b0] font-tech">
       <div>
-        <span class="text-white font-bold">Piano Player</span> © 2026 人工智慧概論 期中專案報告展示
-      </div>
-      <div class="flex items-center gap-4">
-        <span>Chillwave / Dreamwave Aesthetic</span>
-        <span>•</span>
-        <span>Vibe Coding Workflow</span>
+        <span class="text-white font-bold">Piano Player</span> © 2026 郭泉宏 人工智慧概論 期中專案報告展示
       </div>
     </div>
   </footer>
 
   <!-- Scripts -->
   <script src="js/main.js"></script>
+  <script src="js/piano3d.js"></script>
 </body>
 </html>

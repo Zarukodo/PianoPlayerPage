@@ -29,6 +29,7 @@ function initScenicBackground() {
 
   const scenes = {
     'hero': sceneOcean,
+    'piano-showcase': sceneOcean,
     'vision': sceneAurora,
     'showcase': sceneAurora,
     'tech': sceneNebula,
