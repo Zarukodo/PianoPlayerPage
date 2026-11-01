@@ -111,22 +111,13 @@
       clearcoatRoughness: 0.04
     });
 
-    // B. Polished Golden Brass (Harp plate, Strings, Prop stick, Pedals, Casters)
+    // B. Polished Golden Brass (Prop stick, Pedals, Casters)
     const brassMat = new THREE.MeshStandardMaterial({
       color: 0xffd166,
       emissive: 0x5a3e14,
       emissiveIntensity: 0.28,
       metalness: 0.92,
       roughness: 0.18
-    });
-
-    // C. Soundboard Wood / Resonator Core (Velvety dark acoustic spruce wood)
-    const soundboardMat = new THREE.MeshStandardMaterial({
-      color: 0x140d1e,
-      emissive: 0x0c0714,
-      emissiveIntensity: 0.15,
-      roughness: 0.72,
-      metalness: 0.10
     });
 
     // D. Keyboard Keys Materials
@@ -244,120 +235,6 @@
     const rimNeonWire = new THREE.LineSegments(rimEdges, neonCyanLineMat);
     rimNeonWire.position.y = -0.15;
     pianoModel.add(rimNeonWire);
-
-    // B. Inner Acoustic Resonator Soundboard (Deep Cosmic Violet Lacquer)
-    const soundboardGeo = new THREE.ExtrudeGeometry(pianoShape, { depth: 0.015, bevelEnabled: false });
-    soundboardGeo.rotateX(-Math.PI / 2);
-    const soundboardMesh = new THREE.Mesh(soundboardGeo, soundboardMat);
-    soundboardMesh.scale.set(0.94, 1, 0.94);
-    soundboardMesh.position.y = -0.06;
-    pianoModel.add(soundboardMesh);
-
-    // C. Authentic Steinway Cast-Iron Golden Harp Structure
-    // 1. Front Pin Block (Gleaming brass plate behind fallboard holding tuning pins)
-    const pinblockGeo = new THREE.BoxGeometry(1.22, 0.028, 0.10);
-    const pinblockMesh = new THREE.Mesh(pinblockGeo, brassMat);
-    pinblockMesh.position.set(0, -0.01, 0.84);
-    pianoModel.add(pinblockMesh);
-
-    // 2. Curved Wooden/Brass Bridges
-    // Treble Long Bridge (Curving gracefully across the soundboard)
-    const trebleBridgePts = [];
-    for (let t = 0; t <= 16; t++) {
-      const u = t / 16;
-      const bx = 0.36 - u * 0.52;
-      const bz = 0.42 - u * 1.18;
-      trebleBridgePts.push(new THREE.Vector3(bx, -0.015, bz));
-    }
-    const trebleBridgeCurve = new THREE.CatmullRomCurve3(trebleBridgePts);
-    const trebleBridgeGeo = new THREE.TubeGeometry(trebleBridgeCurve, 24, 0.012, 8, false);
-    const trebleBridge = new THREE.Mesh(trebleBridgeGeo, brassMat);
-    pianoModel.add(trebleBridge);
-
-    // Bass Overstrung Bridge (Elevated bridge on rear left)
-    const bassBridgePts = [];
-    for (let b = 0; b <= 10; b++) {
-      const u = b / 10;
-      const bx = -0.42 + u * 0.28;
-      const bz = -0.50 - u * 0.38;
-      bassBridgePts.push(new THREE.Vector3(bx, 0.012, bz));
-    }
-    const bassBridgeCurve = new THREE.CatmullRomCurve3(bassBridgePts);
-    const bassBridgeGeo = new THREE.TubeGeometry(bassBridgeCurve, 16, 0.014, 8, false);
-    const bassBridge = new THREE.Mesh(bassBridgeGeo, brassMat);
-    pianoModel.add(bassBridge);
-
-    // 3. Two Steinway Cast-Iron Reinforcing Struts (Sleek aerodynamic diagonal ribs)
-    const strutsGroup = new THREE.Group();
-    const strutConfigs = [
-      { start: [0.38, 0.78], end: [0.32, -0.35] },   // Treble Strut
-      { start: [-0.18, 0.78], end: [-0.15, -0.85] }  // Bass Strut
-    ];
-
-    strutConfigs.forEach(({ start, end }) => {
-      const dx = end[0] - start[0];
-      const dz = end[1] - start[1];
-      const len = Math.sqrt(dx * dx + dz * dz);
-      const strutGeo = new THREE.BoxGeometry(0.018, 0.014, len);
-      const strut = new THREE.Mesh(strutGeo, brassMat);
-      strut.position.set((start[0] + end[0]) / 2, 0.012, (start[1] + end[1]) / 2);
-      strut.rotation.y = Math.atan2(dx, dz);
-      strutsGroup.add(strut);
-    });
-    pianoModel.add(strutsGroup);
-
-    // D. Authentic Steinway Cross-Strung Harp Strings (Gleaming Golden Strands)
-    // 1. Treble Bank (36 Strings from front pinblock across to treble bridge)
-    const trebleStrings = new THREE.Group();
-    const trebleCount = 36;
-    for (let i = 0; i < trebleCount; i++) {
-      const t = i / (trebleCount - 1);
-      const startX = -0.28 + t * 0.82;
-      const startZ = 0.82;
-      const endX = -0.34 + t * 0.68;
-      const endZ = 0.40 - t * 1.15;
-
-      const pts = [
-        new THREE.Vector3(startX, 0.012, startZ),
-        new THREE.Vector3(endX, -0.005, endZ)
-      ];
-      const strGeo = new THREE.BufferGeometry().setFromPoints(pts);
-      const strMesh = new THREE.Line(strGeo, new THREE.LineBasicMaterial({ color: 0xffdf79, opacity: 1.0 }));
-      trebleStrings.add(strMesh);
-    }
-    pianoModel.add(trebleStrings);
-
-    // 2. Overstrung Bass Bank (18 Strings crossed diagonally OVER treble bank)
-    const bassStrings = new THREE.Group();
-    const bassCount = 18;
-    for (let b = 0; b < bassCount; b++) {
-      const t = b / (bassCount - 1);
-      const startX = -0.58 + t * 0.28;
-      const startZ = 0.83;
-      const endX = -0.40 + t * 0.26;
-      const endZ = -0.50 - t * 0.38;
-
-      const pts = [
-        new THREE.Vector3(startX, 0.035, startZ),
-        new THREE.Vector3(endX, 0.024, endZ)
-      ];
-      const strGeo = new THREE.BufferGeometry().setFromPoints(pts);
-      const strMesh = new THREE.Line(strGeo, new THREE.LineBasicMaterial({ color: 0xffb703, opacity: 1.0 }));
-      bassStrings.add(strMesh);
-    }
-    pianoModel.add(bassStrings);
-
-    // Tuning Pins Matrix (Golden pins on the front pinblock)
-    const pinGroup = new THREE.Group();
-    const pinGeo = new THREE.CylinderGeometry(0.004, 0.004, 0.024, 6);
-    for (let p = 0; p < 42; p++) {
-      const px = -0.56 + (p / 41) * 1.12;
-      const pz = 0.83 + (p % 2) * 0.025;
-      const pin = new THREE.Mesh(pinGeo, brassMat);
-      pin.position.set(px, 0.022, pz);
-      pinGroup.add(pin);
-    }
-    pianoModel.add(pinGroup);
 
     // E. Front Keyboard Assembly (Located accurately at Front Edge Z = +1.04)
     // Keybed foundation block
